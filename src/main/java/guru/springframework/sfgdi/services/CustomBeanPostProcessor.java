@@ -11,7 +11,7 @@ public class CustomBeanPostProcessor implements BeanPostProcessor {
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 
         if(bean instanceof LifeCycleDemoBean){
-            ((LifeCycleDemoBean) bean).beforeInit();
+            ((LifeCycleDemoBean)bean).beforeInit();
         }
 
         return bean;
