@@ -1,6 +1,6 @@
 package guru.springframework.sfgdi.repositories;
 
-public interface EnglishGreetingRepository {
+public interface GreetingRepository {
 
     String getGreeting();
 }

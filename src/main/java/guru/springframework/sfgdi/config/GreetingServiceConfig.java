@@ -1,9 +1,10 @@
 package guru.springframework.sfgdi.config;
 
-import guru.springframework.sfgdi.repositories.EnglishGreetingRepository;
-import guru.springframework.sfgdi.repositories.EnglishGreetingRepositoryImpl;
+import guru.springframework.sfgdi.repositories.GreetingInSpanishRepositoryImpl;
+import guru.springframework.sfgdi.repositories.GreetingRepository;
+import guru.springframework.sfgdi.repositories.GreetingInEnglishRepositoryImpl;
 import guru.springframework.sfgdi.services.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -35,19 +36,25 @@ public class GreetingServiceConfig {
 
 
     @Bean
-    EnglishGreetingRepository englishGreetingRepository () {
-        return new EnglishGreetingRepositoryImpl();
+    GreetingRepository englishGreetingRepository () {
+        return new GreetingInEnglishRepositoryImpl();
     };
 
     @Bean("i18nService")
     @Profile("EN")
-    I18nEnglishGreetingService greetingInEnglish(EnglishGreetingRepository englishGreetingRepository) {
-        return new I18nEnglishGreetingService(englishGreetingRepository);
+    I18nEnglishGreetingService greetingInEnglish(@Qualifier ("englishGreetingRepository") GreetingRepository greetingRepository) {
+        return new I18nEnglishGreetingService(greetingRepository);
     }
+
+
+    @Bean
+    GreetingRepository spanishGreetingRepository() { return new GreetingInSpanishRepositoryImpl();}
 
     @Bean("i18nService")
     @Profile({"ES", "default"})
-    I18nSpanishService greetingInSpanish() {
-        return new I18nSpanishService();
+    I18nSpanishGreetingService greetingInSpanish(@Qualifier ("spanishGreetingRepository") GreetingRepository greetingRepository) {
+        return new I18nSpanishGreetingService(greetingRepository);
     }
+
+
 }

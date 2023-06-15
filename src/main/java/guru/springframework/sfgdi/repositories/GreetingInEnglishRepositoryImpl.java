@@ -3,7 +3,7 @@ package guru.springframework.sfgdi.repositories;
 
 
 
-public class EnglishGreetingRepositoryImpl implements EnglishGreetingRepository {
+public class GreetingInEnglishRepositoryImpl implements GreetingRepository {
     @Override
     public String getGreeting() {
         return "Hello World - EN";
