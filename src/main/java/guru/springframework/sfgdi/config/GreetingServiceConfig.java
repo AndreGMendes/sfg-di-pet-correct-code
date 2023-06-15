@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class GreetingServiceConfig {
 
+    // ---- BEAN EXAMPLE ----
+
     @Bean
     ConstructorGreetingService constructorGreetingService () {
         return new ConstructorGreetingService();
@@ -38,6 +40,8 @@ public class GreetingServiceConfig {
     }
 
 
+    // ---- SERVICE REPOSITORY EXAMPLE ----
+
     @Bean
     GreetingRepository englishGreetingRepository () {
         return new GreetingInEnglishRepositoryImpl();
@@ -59,6 +63,8 @@ public class GreetingServiceConfig {
         return new I18nSpanishGreetingService(greetingRepository);
     }
 
+
+    // ---- FACTORY SERVICE EXAMPLE ----
 
     @Bean
     PetServiceFactory petServiceFactory () {
