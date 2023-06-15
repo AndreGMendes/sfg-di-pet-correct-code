@@ -8,20 +8,18 @@ import guru.springframework.sfgdi.repositories.GreetingRepository;
 import guru.springframework.sfgdi.repositories.GreetingInEnglishRepositoryImpl;
 import guru.springframework.sfgdi.services.*;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.*;
 
+@ImportResource("classpath:sfgdi-config.xml")
 @Configuration
 public class GreetingServiceConfig {
 
     // ---- BEAN EXAMPLE ----
 
-    @Bean
+   /* @Bean -----------------------------------------------------------> Configurado no ficheiro "sfgdi-config.xml"
     ConstructorGreetingService constructorGreetingService () {
         return new ConstructorGreetingService();
-    }
+    }*/
 
     @Bean
     PropertyInjectedGreetingService propertyInjectedGreetingService () {
@@ -71,11 +69,13 @@ public class GreetingServiceConfig {
         return new PetServiceFactory();
     }
 
+
     @Profile({"dog", "default"})
     @Bean
     PetService dogPetService (PetServiceFactory petServiceFactory) {
         return petServiceFactory().getPetService("dog");
     }
+
 
     @Profile({"cat"})
     @Bean
