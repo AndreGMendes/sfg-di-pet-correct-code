@@ -13,7 +13,7 @@ public class SetterInjectedController {
 
     private GreetingService greetingService;
 
-    @Qualifier("setterInjectedGreetingService")
+    @Qualifier("setterInjectedGreetingService") // Usado para escolher quais das implementação do Serviço a usar.
     @Autowired
     public void setGreetingService(GreetingService greetingService) {
         this.greetingService = greetingService;
