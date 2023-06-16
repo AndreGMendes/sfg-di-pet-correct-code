@@ -3,13 +3,16 @@ package guru.springframework.sfgdi.config;
 import com.springframework.pets.DogPetService;
 import com.springframework.pets.PetService;
 import com.springframework.pets.PetServiceFactory;
+import guru.springframework.sfgdi.datasource.FakeDataSource;
 import guru.springframework.sfgdi.repositories.GreetingInSpanishRepositoryImpl;
 import guru.springframework.sfgdi.repositories.GreetingRepository;
 import guru.springframework.sfgdi.repositories.GreetingInEnglishRepositoryImpl;
 import guru.springframework.sfgdi.services.*;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 
+@PropertySource("classpath:datasource.properties")
 @ImportResource("classpath:sfgdi-config.xml")
 @Configuration
 public class GreetingServiceConfig {
@@ -81,6 +84,21 @@ public class GreetingServiceConfig {
     @Bean
     PetService catPetService (PetServiceFactory petServiceFactory) {
         return petServiceFactory().getPetService("cat");
+    }
+
+
+    // ---- DATASOURCE.PROPERTIES EXAMPLE ----
+
+    @Bean
+    FakeDataSource fakeDataSource (@Value("${guru.username}") String username,
+                                   @Value("${guru.password}") String password,
+                                   @Value("${guru.jdbcurl}") String jdbcurl) {
+        FakeDataSource fakeDataSource = new FakeDataSource();
+        fakeDataSource.setUserName(username);
+        fakeDataSource.setPassword(password);
+        fakeDataSource.setJdbcurl(jdbcurl);
+
+        return fakeDataSource;
     }
 
 }
