@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active:
+      - cat
+      - EN
+      - prod
+
+guru:
+  username: ymlUserName
+  password: ymlPassword
+  jdbcurl:  yml.link.com
+
+---
+spring:
+  profiles: prod
+
+guru:
+  username: ymlPRODUserName
+  password: ymlPRODPassword
+  jdbcurl:  yml.PROD.com, yml.XXXX.XXX
