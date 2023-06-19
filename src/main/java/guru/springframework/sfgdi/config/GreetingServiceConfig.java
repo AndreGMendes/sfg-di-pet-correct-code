@@ -10,11 +10,13 @@ import guru.springframework.sfgdi.repositories.GreetingInEnglishRepositoryImpl;
 import guru.springframework.sfgdi.services.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.*;
 
 // @PropertySource("classpath:datasource.properties")
 @ImportResource("classpath:sfgdi-config.xml")
 @Configuration
+@EnableConfigurationProperties (SfgConstructorConfig.class)
 public class GreetingServiceConfig {
 
     // ---- BEAN EXAMPLE ----
@@ -90,11 +92,11 @@ public class GreetingServiceConfig {
     // ---- DATASOURCE.PROPERTIES EXAMPLE ----
 
     @Bean
-    FakeDataSource fakeDataSource (SfgConfiguration sfgConfiguration) {
+    FakeDataSource fakeDataSource (SfgConstructorConfig sfgConstructorConfig) {
         FakeDataSource fakeDataSource = new FakeDataSource();
-        fakeDataSource.setUserName(sfgConfiguration.getUserName());
-        fakeDataSource.setPassword(sfgConfiguration.getPassword());
-        fakeDataSource.setJdbcurl(sfgConfiguration.getJdbcurl());
+        fakeDataSource.setUserName(sfgConstructorConfig.getUserName());
+        fakeDataSource.setPassword(sfgConstructorConfig.getPassword());
+        fakeDataSource.setJdbcurl(sfgConstructorConfig.getJdbcurl());
 
         return fakeDataSource;
     }
